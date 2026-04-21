@@ -110,6 +110,8 @@ let totalScore = 0;
 document.addEventListener("DOMContentLoaded", () => {
     initTest();
     initAccordion();
+    initScrollReveal();
+    initWhatsAppTooltip();
     
     // Header scroll effect
     const header = document.getElementById('main-header');
@@ -302,3 +304,111 @@ function initAccordion() {
         });
     });
 }
+
+// Visual Effects & UI Interactions
+function initScrollReveal() {
+    // Dynamically assign reveal class so HTML stays clean
+    const elementsToReveal = document.querySelectorAll('.section-title, .section-subtitle, .card, .timeline-step-hz, .accordion-col');
+    elementsToReveal.forEach((el, index) => {
+        el.classList.add('reveal');
+        // Stagger delays for grid items
+        if (el.classList.contains('card') || el.classList.contains('timeline-step-hz')) {
+            const delayClass = 'reveal-delay-' + ((index % 3) + 1);
+            el.classList.add(delayClass);
+        }
+    });
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+function initWhatsAppTooltip() {
+    const tooltip = document.getElementById('wa-tooltip');
+    const wrapper = document.getElementById('wa-tooltip-wrapper');
+    
+    if (tooltip && wrapper) {
+        // Auto show after 3.5s to catch attention
+        setTimeout(() => {
+            tooltip.classList.add('show');
+            setTimeout(() => tooltip.classList.remove('show'), 5000);
+        }, 3500);
+        
+        // Hover interaction
+        wrapper.addEventListener('mouseenter', () => tooltip.classList.add('show'));
+        wrapper.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
+    }
+}
+
+// Smart Form Handler
+function handleSmartForm(event) {
+    event.preventDefault();
+    
+    const form = document.getElementById('contact-smart-form');
+    const successMsg = document.getElementById('smart-form-success');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    
+    if (!form || !successMsg || !submitBtn) return;
+    
+    // Simulate secure loading state
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = 'Encriptando y enviando...';
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '0.7';
+    
+    // Simulate network request
+    setTimeout(() => {
+        form.style.display = 'none';
+        successMsg.classList.add('active');
+    }, 1800);
+}
+
+// Custom Select Logic
+document.addEventListener('DOMContentLoaded', () => {
+    const customSelects = document.querySelectorAll('.custom-select-container');
+    
+    customSelects.forEach(container => {
+        const trigger = container.querySelector('.custom-select-trigger');
+        const list = container.querySelector('.custom-options-list');
+        const options = list.querySelectorAll('li');
+        const hiddenSelect = container.querySelector('select');
+        const selectedText = container.querySelector('.selected-text');
+        
+        if (!trigger || !list || !hiddenSelect) return;
+        
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            container.classList.toggle('open');
+        });
+        
+        options.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Update text
+                selectedText.textContent = option.textContent;
+                // Update hidden select
+                hiddenSelect.value = option.dataset.value;
+                // Add has-value class for floating label
+                container.classList.add('has-value');
+                // Close list
+                container.classList.remove('open');
+                // Remove required warning if it was touched
+                hiddenSelect.removeAttribute('required');
+            });
+        });
+        
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (!container.contains(e.target)) {
+                container.classList.remove('open');
+            }
+        });
+    });
+});
