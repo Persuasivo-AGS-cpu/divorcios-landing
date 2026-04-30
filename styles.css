@@ -1374,3 +1374,5 @@ a { text-decoration: none; color: inherit; }
         margin-bottom: 0;
     }
 }
+
+.step-card:hover { transform: translateY(-5px); }
