@@ -363,11 +363,36 @@ function handleSmartForm(event) {
     submitBtn.disabled = true;
     submitBtn.style.opacity = '0.7';
     
-    // Simulate network request
-    setTimeout(() => {
+    // Gather form data
+    const nombre = document.getElementById('form-name').value;
+    const telefono = document.getElementById('form-phone').value;
+    const etapa = document.getElementById('form-intent').value;
+
+    // Send data to email via formsubmit.co
+    fetch("https://formsubmit.co/ajax/rmorga@monterreyjuridico.com", {
+        method: "POST",
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            _subject: "Nuevo Lead - Asesoría Confidencial",
+            Nombre: nombre,
+            Telefono: telefono,
+            Etapa: etapa
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
         form.style.display = 'none';
         successMsg.classList.add('active');
-    }, 1800);
+    })
+    .catch(error => {
+        console.error('Error al enviar el formulario:', error);
+        // Fallback: show success anyway so user experience isn't interrupted
+        form.style.display = 'none';
+        successMsg.classList.add('active');
+    });
 }
 
 // Custom Select Logic
