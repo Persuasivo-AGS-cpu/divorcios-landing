@@ -250,6 +250,18 @@ function showResults() {
     userAnswers.forEach((ans, i) => {
         emailBody += `${i+1}. ${ans.question}\nRespuesta: ${ans.answer} (${ans.key})\n\n`;
     });
+
+    emailBody += `\n-------------------------------------------------\n`;
+    emailBody += `CHEAT SHEET DE CÓDIGOS CLAVE:\n`;
+    emailBody += `-------------------------------------------------\n`;
+    emailBody += `Q3-A : Bienes mancomunados -> Mayor complejidad patrimonial\n`;
+    emailBody += `Q3-B : Bienes separados -> Proceso patrimonial más sencillo\n`;
+    emailBody += `Q4-A : Hijos menores -> Hay que revisar custodia y pensión\n`;
+    emailBody += `Q5-A : Bienes raíces / negocios -> Lead high-ticket\n`;
+    emailBody += `Q6-C : No habrá acuerdo pacífico -> Posible divorcio contencioso\n`;
+    emailBody += `Q8-C : Riesgo alto / violencia -> Urgencia máxima\n`;
+    emailBody += `Q10-A: Quiere iniciar lo antes posible -> Lead caliente\n`;
+    emailBody += `-------------------------------------------------\n`;
     
     // Send data to email via formsubmit.co in the background
     fetch("https://formsubmit.co/ajax/rmorga@monterreyjuridico.com", {
