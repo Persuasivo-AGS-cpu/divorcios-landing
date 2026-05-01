@@ -163,7 +163,7 @@ function initTest() {
             const btn = document.createElement("button");
             btn.className = "option-btn";
             btn.innerText = opt.text;
-            btn.onclick = () => handleOptionClick(index, opt.key);
+            btn.onclick = () => handleOptionClick(index, q.question, opt.text, opt.key);
             optionsGrid.appendChild(btn);
         });
         
@@ -199,8 +199,8 @@ function resetTestUI() {
     document.getElementById("interactive-test").scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function handleOptionClick(qIndex, key) {
-    userAnswers.push(key);
+function handleOptionClick(qIndex, questionText, answerText, key) {
+    userAnswers.push({ question: questionText, answer: answerText, key: key });
     const currentSlide = document.getElementById(`q-${qIndex}`);
     
     // Animate out
@@ -236,23 +236,38 @@ function showResults() {
     
     resultsContainer.classList.remove("hidden");
     
-    // Generate a unique ID based on the timestamp to make it look professional
-    const leadId = Math.random().toString(36).substring(2, 8).toUpperCase();
+    // Generate a simple, non-suspicious Folio ID
+    const folioId = "FOLIO-" + Math.random().toString(36).substring(2, 6).toUpperCase();
     
-    // The main message to send
-    let waMessage = "Hola, acabo de completar el test confidencial en la página web. Me gustaría agendar una asesoría privada para conocer mis opciones legales.";
+    // Build the payload for the email (FormSubmit)
+    let emailBody = `Nuevo Perfilamiento Legal - ${folioId}\n\n`;
+    userAnswers.forEach((ans, i) => {
+        emailBody += `${i+1}. ${ans.question}\nRespuesta: ${ans.answer} (${ans.key})\n\n`;
+    });
     
-    // Append the diagnostic ID so sales team can reference the CRM/Data
-    // We add the keys selected so they can see it instantly (e.g., ID: ABCD-Q1A-Q2B)
-    const diagnosticString = userAnswers.join('-');
-    waMessage += `\n\n[ID Diagnóstico: ${leadId}-${diagnosticString}]`;
+    // Send data to email via formsubmit.co in the background
+    fetch("https://formsubmit.co/ajax/rmorga@monterreyjuridico.com", {
+        method: "POST",
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            _subject: `Radiografía Confidencial - ${folioId}`,
+            Folio: folioId,
+            Detalle_Respuestas: emailBody
+        })
+    }).catch(err => console.error("Error sending test answers:", err));
+    
+    // The main message to send via WhatsApp, keeping it human and simple
+    let waMessage = `Hola, acabo de completar el test confidencial en la página web. Me gustaría agendar una asesoría privada para conocer mis opciones legales.\n\n[Mi ${folioId}]`;
     
     const phoneNumber = "528119175769"; 
     const waUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(waMessage)}`;
     
     resultWhatsapp.href = waUrl;
     
-    // Auto-redirect after a short delay to feel like it's "Processing"
+    // Auto-redirect after a short delay
     setTimeout(() => {
         window.location.href = waUrl;
     }, 1500);
