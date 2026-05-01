@@ -1453,7 +1453,7 @@ a { text-decoration: none; color: inherit; }
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 80vh;
+    min-height: auto;
 }
 
 .loss-aversion-side-img {
