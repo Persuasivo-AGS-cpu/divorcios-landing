@@ -246,24 +246,13 @@ function showResults() {
     const folioId = "FOLIO-" + Math.random().toString(36).substring(2, 6).toUpperCase();
     
     // Build the payload for the email (FormSubmit)
-    let emailBody = `Nuevo Perfilamiento Legal - ${folioId}\n\n`;
+    let emailBody = "";
     userAnswers.forEach((ans, i) => {
-        emailBody += `${i+1}. ${ans.question}\nRespuesta: ${ans.answer} (${ans.key})\n\n`;
+        emailBody += `Pregunta ${i+1}: ${ans.question}\nRespuesta: ${ans.answer} (${ans.key})\n\n`;
     });
-
-    emailBody += `\n-------------------------------------------------\n`;
-    emailBody += `CHEAT SHEET DE CÓDIGOS CLAVE:\n`;
-    emailBody += `-------------------------------------------------\n`;
-    emailBody += `Q3-A : Bienes mancomunados -> Mayor complejidad patrimonial\n`;
-    emailBody += `Q3-B : Bienes separados -> Proceso patrimonial más sencillo\n`;
-    emailBody += `Q4-A : Hijos menores -> Hay que revisar custodia y pensión\n`;
-    emailBody += `Q5-A : Bienes raíces / negocios -> Lead high-ticket\n`;
-    emailBody += `Q6-C : No habrá acuerdo pacífico -> Posible divorcio contencioso\n`;
-    emailBody += `Q8-C : Riesgo alto / violencia -> Urgencia máxima\n`;
-    emailBody += `Q10-A: Quiere iniciar lo antes posible -> Lead caliente\n`;
-    emailBody += `-------------------------------------------------\n`;
     
     // Send data to email via formsubmit.co in the background
+    // FormSubmit automatically renders JSON properties as an HTML table in the email body.
     fetch("https://formsubmit.co/ajax/rmorga@monterreyjuridico.com", {
         method: "POST",
         headers: { 
@@ -272,8 +261,17 @@ function showResults() {
         },
         body: JSON.stringify({
             _subject: `Radiografía Confidencial - ${folioId}`,
-            Folio: folioId,
-            Detalle_Respuestas: emailBody
+            "Folio del Cliente": folioId,
+            "Respuestas del Test": emailBody,
+            "---": "------------------------------------------------------",
+            "GUÍA RÁPIDA DE CÓDIGOS": "Significado e Impacto Legal",
+            "Q3-A (Bienes mancomunados)": "Mayor complejidad patrimonial",
+            "Q3-B (Bienes separados)": "Proceso patrimonial más sencillo",
+            "Q4-A (Hijos menores)": "Hay que revisar custodia y pensión",
+            "Q5-A (Bienes raíces/negocios)": "Lead high-ticket",
+            "Q6-C (Sin acuerdo pacífico)": "Posible divorcio contencioso",
+            "Q8-C (Riesgo alto/violencia)": "Urgencia máxima",
+            "Q10-A (Iniciar de inmediato)": "Lead caliente"
         })
     }).catch(err => console.error("Error sending test answers:", err));
     
