@@ -1565,24 +1565,6 @@ a { text-decoration: none; color: inherit; }
     z-index: 2;
 }
 
-.pulse-ring {
-    position: absolute;
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
-    border-radius: 50%;
-    border: 2px solid var(--color-cta);
-    animation: pulseAvatar 2s infinite cubic-bezier(0.455, 0.03, 0.515, 0.955);
-    z-index: 1;
-}
-
-@keyframes pulseAvatar {
-    0% { transform: scale(0.95); opacity: 0; }
-    50% { opacity: 0.6; }
-    100% { transform: scale(1.3); opacity: 0; }
-}
-
 @media (max-width: 480px) {
     .flip-card-container {
         height: 150px; /* Slight extra height for mobile text wrap */
