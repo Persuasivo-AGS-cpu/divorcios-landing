@@ -2,109 +2,103 @@
 const questions = [
     {
         id: 1,
-        question: "¿Con qué frecuencia discuten tú y tu pareja?",
+        question: "¿Sientes que has agotado las opciones para salvar la relación?",
         options: [
-            { text: "Casi nunca, hay paz", score: 0 },
-            { text: "A veces, pero es normal", score: 1 },
-            { text: "Frecuentemente, por detalles", score: 2 },
-            { text: "Constantemente, es agotador", score: 4 }
+            { text: "Sí, ya no hay marcha atrás.", key: "Q1-A" },
+            { text: "Aún lo estoy intentando.", key: "Q1-B" },
+            { text: "No estoy seguro/a, estoy confundido/a.", key: "Q1-C" },
+            { text: "Ya tomamos la decisión juntos.", key: "Q1-D" }
         ]
     },
     {
         id: 2,
-        question: "¿Logran resolver los conflictos después de discutir?",
+        question: "¿Tu pareja ya ha mencionado explícitamente la palabra \"divorcio\"?",
         options: [
-            { text: "Sí, siempre llegamos a acuerdos", score: 0 },
-            { text: "A veces, dependiendo del tema", score: 1 },
-            { text: "Rara vez, se quedan cosas pendientes", score: 3 },
-            { text: "Nunca, se vuelve un ciclo", score: 4 }
+            { text: "Sí, constantemente.", key: "Q2-A" },
+            { text: "Solo durante discusiones fuertes.", key: "Q2-B" },
+            { text: "No, pero presiento que pasará pronto.", key: "Q2-C" },
+            { text: "Fui yo quien lo mencionó primero.", key: "Q2-D" }
         ]
     },
     {
         id: 3,
-        question: "¿Aún sienten cariño el uno por el otro?",
+        question: "¿Bajo qué régimen legal contrajeron matrimonio?",
         options: [
-            { text: "Sí, mucho", score: 0 },
-            { text: "Hay cariño, pero está apagado", score: 2 },
-            { text: "No estoy seguro/a", score: 3 },
-            { text: "No, el cariño se ha perdido", score: 4 }
+            { text: "Bienes Mancomunados (Sociedad Conyugal).", key: "Q3-A" },
+            { text: "Bienes Separados.", key: "Q3-B" },
+            { text: "No estoy seguro/a.", key: "Q3-C" }
         ]
     },
     {
         id: 4,
-        question: "¿Han mencionado el divorcio?",
+        question: "¿Existen hijos menores de edad producto del matrimonio?",
         options: [
-            { text: "Nunca", score: 0 },
-            { text: "Solo en momentos de mucho enojo", score: 2 },
-            { text: "Sí, lo hemos hablado como posibilidad", score: 3 },
-            { text: "Constantemente, parece inevitable", score: 5 }
+            { text: "Sí.", key: "Q4-A" },
+            { text: "No.", key: "Q4-B" },
+            { text: "Sí, pero ya son mayores de edad.", key: "Q4-C" }
         ]
     },
     {
         id: 5,
-        question: "¿Existe confianza entre ustedes?",
+        question: "¿Adquirieron bienes raíces o negocios durante el tiempo que han estado casados?",
         options: [
-            { text: "Totalmente", score: 0 },
-            { text: "Hay algunas dudas", score: 2 },
-            { text: "Se ha roto, pero queremos reconstruirla", score: 3 },
-            { text: "La confianza está completamente rota", score: 5 }
+            { text: "Sí (Casas, terrenos, negocios).", key: "Q5-A" },
+            { text: "Solo vehículos o ahorros.", key: "Q5-B" },
+            { text: "No adquirimos bienes de valor significativo.", key: "Q5-C" }
         ]
     },
     {
         id: 6,
-        question: "¿Cuánto tiempo llevan con este tipo de problemas?",
+        question: "Si deciden separarse, ¿crees que tu pareja estaría dispuesta a llegar a un acuerdo pacífico?",
         options: [
-            { text: "Semanas, es reciente", score: 1 },
-            { text: "Algunos meses", score: 2 },
-            { text: "De 1 a 3 años", score: 4 },
-            { text: "Más de 3 años", score: 5 }
+            { text: "Sí, creo que podemos acordar pacíficamente.", key: "Q6-A" },
+            { text: "Tal vez, dependerá de los términos.", key: "Q6-B" },
+            { text: "No, será un proceso muy conflictivo y cerrado.", key: "Q6-C" }
         ]
     },
     {
         id: 7,
-        question: "¿Ambos quieren mejorar la relación?",
+        question: "¿Actualmente siguen viviendo en la misma casa?",
         options: [
-            { text: "Sí, ambos estamos comprometidos", score: 0 },
-            { text: "Yo quiero, no sé mi pareja", score: 2 },
-            { text: "Mi pareja quiere, yo no estoy seguro/a", score: 3 },
-            { text: "Ninguno de los dos parece interesado", score: 5 }
+            { text: "Sí, seguimos viviendo juntos.", key: "Q7-A" },
+            { text: "Sí, pero dormimos separados.", key: "Q7-B" },
+            { text: "No, ya nos separamos físicamente.", key: "Q7-C" }
         ]
     },
     {
         id: 8,
-        question: "¿Existen factores complicados (infidelidad, adicciones, violencia)?",
+        question: "¿Existen situaciones delicadas que requieran atención legal urgente (ej. ocultamiento de dinero, violencia, adicciones)?",
         options: [
-            { text: "No, nada de eso", score: 0 },
-            { text: "Hay problemas financieros fuertes", score: 2 },
-            { text: "Hubo infidelidad en el pasado", score: 4 },
-            { text: "Sí, existen situaciones muy complejas", score: 6 }
+            { text: "No, nada de eso.", key: "Q8-A" },
+            { text: "Prefiero no decirlo en este momento.", key: "Q8-B" },
+            { text: "Sí, hay situaciones complejas y necesito protección urgente.", key: "Q8-C" }
         ]
     },
     {
         id: 9,
-        question: "¿Qué tan felices son hoy en el matrimonio?",
+        question: "¿Actualmente ambos generan ingresos económicos propios?",
         options: [
-            { text: "Muy felices", score: 0 },
-            { text: "Se puede estar mejor", score: 1 },
-            { text: "Tristes y frustrados", score: 3 },
-            { text: "Profundamente infelices", score: 5 }
+            { text: "Ambos trabajamos y somos independientes.", key: "Q9-A" },
+            { text: "Solo yo trabajo y sostengo el hogar.", key: "Q9-B" },
+            { text: "Solo mi pareja trabaja (yo me he dedicado al hogar/hijos).", key: "Q9-C" }
         ]
     },
     {
         id: 10,
-        question: "Si pudieras decidir hoy sobre el futuro de la relación...",
+        question: "Si te mostramos un camino legal claro y que proteja tu futuro, ¿qué tan pronto te gustaría iniciar el trámite?",
         options: [
-            { text: "Elegiría seguir y luchar por la relación", score: 0 },
-            { text: "Tomaría un tiempo de separación", score: 3 },
-            { text: "Buscaría asesoría para divorciarme", score: 5 },
-            { text: "Ya he decidido divorciarme", score: 6 }
+            { text: "Lo antes posible", key: "Q10-A" },
+            { text: "En los próximos meses", key: "Q10-B" },
+            { text: "Solo estoy informándome por ahora", key: "Q10-C" }
         ]
     }
 ];
 
 // Test State
+// Test State
 let currentQuestionIndex = 0;
-let totalScore = 0;
+let totalScore = 0; // Keeping this var for compatibility if needed elsewhere
+let userAnswers = [];
 
 // Initialize
 document.addEventListener("DOMContentLoaded", () => {
@@ -169,7 +163,7 @@ function initTest() {
             const btn = document.createElement("button");
             btn.className = "option-btn";
             btn.innerText = opt.text;
-            btn.onclick = () => handleOptionClick(index, opt.score);
+            btn.onclick = () => handleOptionClick(index, opt.key);
             optionsGrid.appendChild(btn);
         });
         
@@ -205,8 +199,8 @@ function resetTestUI() {
     document.getElementById("interactive-test").scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function handleOptionClick(qIndex, score) {
-    totalScore += score;
+function handleOptionClick(qIndex, key) {
+    userAnswers.push(key);
     const currentSlide = document.getElementById(`q-${qIndex}`);
     
     // Animate out
@@ -238,40 +232,30 @@ function handleOptionClick(qIndex, score) {
 
 function showResults() {
     const resultsContainer = document.getElementById("test-results");
-    const resultTitle = document.getElementById("result-title");
-    const resultMessage = document.getElementById("result-message");
     const resultWhatsapp = document.getElementById("result-whatsapp");
     
     resultsContainer.classList.remove("hidden");
     
-    let title = "";
-    let message = "";
-    let waMessage = "";
+    // Generate a unique ID based on the timestamp to make it look professional
+    const leadId = Math.random().toString(36).substring(2, 8).toUpperCase();
     
-    // States Calculation: Max score is around 48.
-    // 0-15: Salvageable
-    // 16-30: In Crisis
-    // 31+: Likely Ending
+    // The main message to send
+    let waMessage = "Hola, acabo de completar el test confidencial en la página web. Me gustaría agendar una asesoría privada para conocer mis opciones legales.";
     
-    if (totalScore < 16) {
-        title = "Tu matrimonio parece rescatable";
-        message = "Según tus respuestas, existen problemas pero también hay indicadores fuertes de cariño y compromiso. Podrían beneficiarse de terapia de pareja antes de considerar opciones legales.";
-        waMessage = "Hola, completé el test matrimonial y el resultado indica que mi matrimonio es rescatable, pero me gustaría recibir información sobre protección de patrimonio por prevención. ¿Pueden orientarme?";
-    } else if (totalScore < 30) {
-        title = "Relación en Crisis";
-        message = "La relación está atravesando una crisis significativa. Hay un desgaste notable en la confianza y comunicación. Es un momento crucial donde es prudente conocer tus derechos y opciones legales de manera confidencial para protegerte ante cualquier eventualidad.";
-        waMessage = "Hola, completé el test y me indica que mi relación está en crisis. Me gustaría agendar una asesoría confidencial para conocer mis derechos legales en caso de una separación.";
-    } else {
-        title = "Relación posiblemente terminando";
-        message = "Tus respuestas reflejan una relación con un daño profundo, donde quizás el límite ya se ha cruzado. Cuando hay este nivel de fractura, lo más responsable para tu paz mental es asesorarte y entender el proceso de separación legal.";
-        waMessage = "Hola, completé el test y me indica que mi relación posiblemente está terminando. Quisiera una asesoría urgente y confidencial para iniciar un trámite de divorcio.";
-    }
-    
-    resultTitle.innerText = title;
-    resultMessage.innerText = message;
+    // Append the diagnostic ID so sales team can reference the CRM/Data
+    // We add the keys selected so they can see it instantly (e.g., ID: ABCD-Q1A-Q2B)
+    const diagnosticString = userAnswers.join('-');
+    waMessage += `\n\n[ID Diagnóstico: ${leadId}-${diagnosticString}]`;
     
     const phoneNumber = "528119175769"; 
-    resultWhatsapp.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(waMessage)}`;
+    const waUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(waMessage)}`;
+    
+    resultWhatsapp.href = waUrl;
+    
+    // Auto-redirect after a short delay to feel like it's "Processing"
+    setTimeout(() => {
+        window.location.href = waUrl;
+    }, 1500);
 }
 
 // Smooth scroll wrapper to start test
