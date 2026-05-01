@@ -273,7 +273,7 @@ function showResults() {
     
     resultWhatsapp.href = waUrl;
     
-    // Loading Sequence Animation
+    // Loading Sequence Animation (Faster to avoid drop-off)
     setTimeout(() => {
         resultTitle.style.opacity = 0;
         resultMessage.style.opacity = 0;
@@ -282,8 +282,8 @@ function showResults() {
             resultMessage.innerText = "Generando tu Folio de alta seguridad.";
             resultTitle.style.opacity = 1;
             resultMessage.style.opacity = 1;
-        }, 300);
-    }, 1500);
+        }, 200);
+    }, 1000);
 
     setTimeout(() => {
         resultTitle.style.opacity = 0;
@@ -293,8 +293,8 @@ function showResults() {
             resultMessage.innerText = "Conectando con el canal privado del Lic. José Ramón Morga.";
             resultTitle.style.opacity = 1;
             resultMessage.style.opacity = 1;
-        }, 300);
-    }, 3500);
+        }, 200);
+    }, 2200);
 
     setTimeout(() => {
         // Hide loader, show button
@@ -304,8 +304,8 @@ function showResults() {
         // Final Auto-redirect
         setTimeout(() => {
             window.location.href = waUrl;
-        }, 2000);
-    }, 5500);
+        }, 1500);
+    }, 3500);
 }
 
 // Smooth scroll wrapper to start test
