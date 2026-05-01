@@ -232,9 +232,15 @@ function handleOptionClick(qIndex, questionText, answerText, key) {
 
 function showResults() {
     const resultsContainer = document.getElementById("test-results");
+    const loadingDiv = document.getElementById("loading-sequence");
+    const actionDiv = document.getElementById("final-whatsapp-action");
+    const resultTitle = document.getElementById("result-title");
+    const resultMessage = document.getElementById("result-message");
     const resultWhatsapp = document.getElementById("result-whatsapp");
     
     resultsContainer.classList.remove("hidden");
+    loadingDiv.classList.remove("hidden");
+    actionDiv.classList.add("hidden");
     
     // Generate a simple, non-suspicious Folio ID
     const folioId = "FOLIO-" + Math.random().toString(36).substring(2, 6).toUpperCase();
@@ -267,10 +273,39 @@ function showResults() {
     
     resultWhatsapp.href = waUrl;
     
-    // Auto-redirect after a short delay
+    // Loading Sequence Animation
     setTimeout(() => {
-        window.location.href = waUrl;
+        resultTitle.style.opacity = 0;
+        resultMessage.style.opacity = 0;
+        setTimeout(() => {
+            resultTitle.innerText = "Codificando perfil...";
+            resultMessage.innerText = "Generando tu Folio de alta seguridad.";
+            resultTitle.style.opacity = 1;
+            resultMessage.style.opacity = 1;
+        }, 300);
     }, 1500);
+
+    setTimeout(() => {
+        resultTitle.style.opacity = 0;
+        resultMessage.style.opacity = 0;
+        setTimeout(() => {
+            resultTitle.innerText = "Preparando sala confidencial...";
+            resultMessage.innerText = "Conectando con el canal privado del Lic. José Ramón Morga.";
+            resultTitle.style.opacity = 1;
+            resultMessage.style.opacity = 1;
+        }, 300);
+    }, 3500);
+
+    setTimeout(() => {
+        // Hide loader, show button
+        loadingDiv.classList.add("hidden");
+        actionDiv.classList.remove("hidden");
+        
+        // Final Auto-redirect
+        setTimeout(() => {
+            window.location.href = waUrl;
+        }, 2000);
+    }, 5500);
 }
 
 // Smooth scroll wrapper to start test
