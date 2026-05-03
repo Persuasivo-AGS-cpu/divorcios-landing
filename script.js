@@ -2,94 +2,56 @@
 const questions = [
     {
         id: 1,
-        question: "¿Sientes que has agotado las opciones para salvar la relación?",
+        question: "¿Existen hijos menores de edad producto del matrimonio?",
         options: [
-            { text: "Sí, ya no hay marcha atrás.", key: "Q1-A" },
-            { text: "Aún lo estoy intentando.", key: "Q1-B" },
-            { text: "No estoy seguro/a, estoy confundido/a.", key: "Q1-C" },
-            { text: "Ya tomamos la decisión juntos.", key: "Q1-D" }
+            { text: "Sí.", key: "Q1-A" },
+            { text: "No.", key: "Q1-B" },
+            { text: "Sí, pero ya son mayores de edad.", key: "Q1-C" }
         ]
     },
     {
         id: 2,
-        question: "¿Tu pareja ya ha mencionado explícitamente la palabra \"divorcio\"?",
+        question: "¿Bajo qué régimen matrimonial están y existen bienes importantes (casas, negocios) a dividir?",
         options: [
-            { text: "Sí, constantemente.", key: "Q2-A" },
-            { text: "Solo durante discusiones fuertes.", key: "Q2-B" },
-            { text: "No, pero presiento que pasará pronto.", key: "Q2-C" },
-            { text: "Fui yo quien lo mencionó primero.", key: "Q2-D" }
+            { text: "Bienes Mancomunados con propiedades/negocios.", key: "Q2-A" },
+            { text: "Bienes Separados con propiedades/negocios.", key: "Q2-B" },
+            { text: "No hay bienes de valor significativo / No estoy seguro.", key: "Q2-C" }
         ]
     },
     {
         id: 3,
-        question: "¿Bajo qué régimen legal contrajeron matrimonio?",
+        question: "Si deciden separarse, ¿crees que tu pareja estaría dispuesta a llegar a un acuerdo pacífico?",
         options: [
-            { text: "Bienes Mancomunados (Sociedad Conyugal).", key: "Q3-A" },
-            { text: "Bienes Separados.", key: "Q3-B" },
-            { text: "No estoy seguro/a.", key: "Q3-C" }
+            { text: "Sí, creo que podemos acordar pacíficamente.", key: "Q3-A" },
+            { text: "Tal vez, dependerá de los términos.", key: "Q3-B" },
+            { text: "No, será un proceso muy conflictivo y cerrado.", key: "Q3-C" }
         ]
     },
     {
         id: 4,
-        question: "¿Existen hijos menores de edad producto del matrimonio?",
+        question: "¿Actualmente siguen viviendo en la misma casa?",
         options: [
-            { text: "Sí.", key: "Q4-A" },
-            { text: "No.", key: "Q4-B" },
-            { text: "Sí, pero ya son mayores de edad.", key: "Q4-C" }
+            { text: "Sí, seguimos viviendo juntos.", key: "Q4-A" },
+            { text: "Sí, pero dormimos separados.", key: "Q4-B" },
+            { text: "No, ya nos separamos físicamente.", key: "Q4-C" }
         ]
     },
     {
         id: 5,
-        question: "¿Adquirieron bienes raíces o negocios durante el tiempo que han estado casados?",
+        question: "¿Existen situaciones delicadas que requieran atención legal urgente (ej. ocultamiento de dinero, violencia, adicciones)?",
         options: [
-            { text: "Sí (Casas, terrenos, negocios).", key: "Q5-A" },
-            { text: "Solo vehículos o ahorros.", key: "Q5-B" },
-            { text: "No adquirimos bienes de valor significativo.", key: "Q5-C" }
+            { text: "No, nada de eso.", key: "Q5-A" },
+            { text: "Prefiero no decirlo en este momento.", key: "Q5-B" },
+            { text: "Sí, hay situaciones complejas y necesito protección urgente.", key: "Q5-C" }
         ]
     },
     {
         id: 6,
-        question: "Si deciden separarse, ¿crees que tu pareja estaría dispuesta a llegar a un acuerdo pacífico?",
-        options: [
-            { text: "Sí, creo que podemos acordar pacíficamente.", key: "Q6-A" },
-            { text: "Tal vez, dependerá de los términos.", key: "Q6-B" },
-            { text: "No, será un proceso muy conflictivo y cerrado.", key: "Q6-C" }
-        ]
-    },
-    {
-        id: 7,
-        question: "¿Actualmente siguen viviendo en la misma casa?",
-        options: [
-            { text: "Sí, seguimos viviendo juntos.", key: "Q7-A" },
-            { text: "Sí, pero dormimos separados.", key: "Q7-B" },
-            { text: "No, ya nos separamos físicamente.", key: "Q7-C" }
-        ]
-    },
-    {
-        id: 8,
-        question: "¿Existen situaciones delicadas que requieran atención legal urgente (ej. ocultamiento de dinero, violencia, adicciones)?",
-        options: [
-            { text: "No, nada de eso.", key: "Q8-A" },
-            { text: "Prefiero no decirlo en este momento.", key: "Q8-B" },
-            { text: "Sí, hay situaciones complejas y necesito protección urgente.", key: "Q8-C" }
-        ]
-    },
-    {
-        id: 9,
-        question: "¿Actualmente ambos generan ingresos económicos propios?",
-        options: [
-            { text: "Ambos trabajamos y somos independientes.", key: "Q9-A" },
-            { text: "Solo yo trabajo y sostengo el hogar.", key: "Q9-B" },
-            { text: "Solo mi pareja trabaja (yo me he dedicado al hogar/hijos).", key: "Q9-C" }
-        ]
-    },
-    {
-        id: 10,
         question: "Si te mostramos un camino legal claro y que proteja tu futuro, ¿qué tan pronto te gustaría iniciar el trámite?",
         options: [
-            { text: "Lo antes posible", key: "Q10-A" },
-            { text: "En los próximos meses", key: "Q10-B" },
-            { text: "Solo estoy informándome por ahora", key: "Q10-C" }
+            { text: "Lo antes posible", key: "Q6-A" },
+            { text: "En los próximos meses", key: "Q6-B" },
+            { text: "Solo estoy informándome por ahora", key: "Q6-C" }
         ]
     }
 ];
@@ -265,24 +227,22 @@ function showResults() {
             "Respuestas del Test": emailBody,
             "---": "------------------------------------------------------",
             "GUÍA RÁPIDA DE CÓDIGOS": "Significado e Impacto Legal",
-            "Q3-A (Bienes mancomunados)": "Mayor complejidad patrimonial",
-            "Q3-B (Bienes separados)": "Proceso patrimonial más sencillo",
-            "Q4-A (Hijos menores)": "Hay que revisar custodia y pensión",
-            "Q5-A (Bienes raíces/negocios)": "Lead high-ticket",
-            "Q6-C (Sin acuerdo pacífico)": "Posible divorcio contencioso",
-            "Q8-C (Riesgo alto/violencia)": "Urgencia máxima",
-            "Q10-A (Iniciar de inmediato)": "Lead caliente"
+            "Q1-A (Hijos menores)": "Hay que revisar custodia y pensión",
+            "Q2-A/B (Bienes importantes)": "Mayor complejidad patrimonial / Lead high-ticket",
+            "Q3-C (Sin acuerdo pacífico)": "Posible divorcio contencioso",
+            "Q5-C (Riesgo alto/violencia)": "Urgencia máxima",
+            "Q6-A (Iniciar de inmediato)": "Lead caliente"
         })
     }).catch(err => console.error("Error sending test answers:", err));
     
     // Generar un sufijo codificado discreto para que ventas sepa el perfil sin asustar al cliente
     let tipoCodificado = "A"; // Asesoría General
     
-    const hasKids = userAnswers.find(a => a.key.startsWith("Q4-A"));
-    const hasAssets = userAnswers.find(a => a.key.startsWith("Q3-A") || a.key.startsWith("Q5-A"));
-    const conflict = userAnswers.find(a => a.key.startsWith("Q6-C") || a.key.startsWith("Q8-C"));
-    const separated = userAnswers.find(a => a.key.startsWith("Q7-C"));
-    const agreement = userAnswers.find(a => a.key.startsWith("Q6-A"));
+    const hasKids = userAnswers.find(a => a.key.startsWith("Q1-A"));
+    const hasAssets = userAnswers.find(a => a.key.startsWith("Q2-A") || a.key.startsWith("Q2-B"));
+    const conflict = userAnswers.find(a => a.key.startsWith("Q3-C") || a.key.startsWith("Q5-C"));
+    const separated = userAnswers.find(a => a.key.startsWith("Q4-C"));
+    const agreement = userAnswers.find(a => a.key.startsWith("Q3-A"));
 
     if (separated && agreement) {
         tipoCodificado = "V"; // Voluntario
