@@ -1,5 +1,6 @@
 /* Custom CSS Variables */
 :root {
+    color-scheme: light;
     --color-primary: #1B365D;
     --color-secondary: #6C8EBF;
     --color-cta: #D4A017;
@@ -16,6 +17,11 @@
     --shadow-md: 0 10px 20px rgba(0,0,0,0.08);
     --shadow-lg: 0 20px 40px rgba(0,0,0,0.1);
     --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+*:focus-visible {
+    outline: 2px solid var(--color-cta);
+    outline-offset: 2px;
 }
 
 /* Reset */
@@ -265,14 +271,40 @@ a { text-decoration: none; color: inherit; }
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 80px;
+    height: 90px;
 }
 
-.header-logo a {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 700;
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
     color: var(--color-primary);
+}
+
+.logo-icon {
+    height: 45px;
+    width: auto;
+    color: var(--color-cta);
+}
+
+.logo-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1.5px solid var(--color-cta);
+    padding-left: 1rem;
+}
+
+.logo-text-top,
+.logo-text-bottom {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 0.08em;
+    color: var(--color-primary);
+    text-transform: uppercase;
 }
 
 .main-nav {

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 106 100" width="106" height="100" fill="#D4A017">
+  <!-- Top Bar -->
+  <rect x="0" y="0" width="106" height="10" />
+  
+  <!-- Pillars -->
+  <path d="M 6 12 L 30 12 Q 25 12 25 22 L 25 78 Q 25 88 30 88 L 6 88 Q 11 88 11 78 L 11 22 Q 11 12 6 12 Z" />
+  <path d="M 41 12 L 65 12 Q 60 12 60 22 L 60 78 Q 60 88 65 88 L 41 88 Q 46 88 46 78 L 46 22 Q 46 12 41 12 Z" />
+  <path d="M 76 12 L 100 12 Q 95 12 95 22 L 95 78 Q 95 88 100 88 L 76 88 Q 81 88 81 78 L 81 22 Q 81 12 76 12 Z" />
+
+  <!-- Bottom Bar -->
+  <rect x="0" y="90" width="106" height="10" />
+</svg>

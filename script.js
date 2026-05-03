@@ -275,8 +275,25 @@ function showResults() {
         })
     }).catch(err => console.error("Error sending test answers:", err));
     
+    // Generar un sufijo codificado discreto para que ventas sepa el perfil sin asustar al cliente
+    let tipoCodificado = "A"; // Asesoría General
+    
+    const hasKids = userAnswers.find(a => a.key.startsWith("Q4-A"));
+    const hasAssets = userAnswers.find(a => a.key.startsWith("Q3-A") || a.key.startsWith("Q5-A"));
+    const conflict = userAnswers.find(a => a.key.startsWith("Q6-C") || a.key.startsWith("Q8-C"));
+    const separated = userAnswers.find(a => a.key.startsWith("Q7-C"));
+    const agreement = userAnswers.find(a => a.key.startsWith("Q6-A"));
+
+    if (separated && agreement) {
+        tipoCodificado = "V"; // Voluntario
+    } else if (conflict) {
+        tipoCodificado = "I"; // Incausado
+    } else if (hasKids || hasAssets) {
+        tipoCodificado = "C"; // Convenio
+    }
+
     // The main message to send via WhatsApp, keeping it human and simple
-    let waMessage = `Hola, acabo de completar el test confidencial en la página web. Me gustaría agendar una asesoría privada para conocer mis opciones legales.\n\n[Mi ${folioId}]`;
+    let waMessage = `Hola, acabo de completar el test confidencial en la página web. Me gustaría agendar una asesoría privada para conocer mis opciones legales.\n\n[Folio de diagnóstico: ${folioId}-${tipoCodificado}]`;
     
     const phoneNumber = "528119175769"; 
     const waUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(waMessage)}`;
@@ -310,6 +327,9 @@ function showResults() {
         // Hide loader, show button
         loadingDiv.classList.add("hidden");
         actionDiv.classList.remove("hidden");
+        
+        resultWhatsapp.style.pointerEvents = "auto";
+        resultWhatsapp.style.opacity = "1";
         
         // Final Auto-redirect
         setTimeout(() => {
