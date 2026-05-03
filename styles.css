@@ -581,6 +581,14 @@ a { text-decoration: none; color: inherit; }
     max-width: 90%;
 }
 
+.bento-dark img {
+    transition: transform 0.8s ease;
+}
+
+.bento-dark:hover img {
+    transform: scale(1.05);
+}
+
 /* Typeform-style Interactive Test */
 .test-section {
     padding: 6rem 0; /* extra padding for intro */
@@ -1450,47 +1458,64 @@ a { text-decoration: none; color: inherit; }
 .loss-aversion-section {
     position: relative;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     min-height: auto;
 }
 
-.loss-aversion-side-img {
-    position: absolute;
-    top: 2rem;
-    bottom: 2rem;
-    width: 25vw;
-    min-width: 200px;
-    max-width: 450px;
-    z-index: 1;
-    pointer-events: none;
+.loss-aversion-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    min-height: 600px;
 }
 
-.loss-aversion-side-img.reveal-left {
-    left: 0;
+.loss-aversion-content-wrapper {
+    padding: 6rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+    position: relative;
+    max-width: 800px;
+    margin-left: auto;
 }
 
-.loss-aversion-side-img.reveal-right {
-    right: 0;
-}
-
-.loss-aversion-side-img img {
+.loss-aversion-image-wrapper {
+    position: relative;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    min-height: 400px;
 }
 
 @media (max-width: 1024px) {
-    .loss-aversion-side-img {
-        opacity: 0.15; /* On tablets, fade them into the background */
-        width: 35vw;
+    .loss-aversion-content-wrapper {
+        padding: 4rem 2rem;
     }
 }
 
-@media (max-width: 768px) {
-    .loss-aversion-side-img {
-        display: none;
+@media (max-width: 900px) {
+    .loss-aversion-grid {
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+    .loss-aversion-image-wrapper {
+        order: -1;
+    }
+    .loss-aversion-content-wrapper {
+        padding: 4rem 1.5rem;
+        margin-left: 0;
+        align-items: center;
+        text-align: center;
+    }
+    .loss-aversion-content-wrapper .section-title {
+        text-align: center !important;
+    }
+    .loss-aversion-content-wrapper > div {
+        text-align: center !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .loss-aversion-image-wrapper div {
+        background: linear-gradient(to bottom, transparent 60%, #1F2937 100%) !important;
     }
 }
 
