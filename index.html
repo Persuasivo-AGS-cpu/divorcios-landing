@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '27234514289520570');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=27234514289520570&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orientación Legal en Divorcio - Monterrey</title>
@@ -578,17 +595,26 @@
                             </select>
                             
                             <!-- Custom UI visible input -->
-                            <div class="floating-input custom-select-trigger" tabindex="0">
+                            <div class="floating-input custom-select-trigger"
+                                 tabindex="0"
+                                 role="combobox"
+                                 aria-expanded="false"
+                                 aria-haspopup="listbox"
+                                 aria-controls="form-intent-listbox"
+                                 aria-labelledby="form-intent-label">
                                 <span class="selected-text" style="color: var(--color-primary);"></span>
                             </div>
-                            <label class="floating-label select-label">¿En qué etapa te encuentras?</label>
-                            
+                            <label id="form-intent-label" class="floating-label select-label">¿En qué etapa te encuentras?</label>
+
                             <!-- Custom dropdown list -->
-                            <ul class="custom-options-list">
-                                <li data-value="info">Solo busco información</li>
-                                <li data-value="decidido">Ya decidí divorciarme</li>
-                                <li data-value="demandado">Me están pidiendo el divorcio</li>
-                                <li data-value="otro">Otra situación familiar</li>
+                            <ul class="custom-options-list"
+                                id="form-intent-listbox"
+                                role="listbox"
+                                aria-labelledby="form-intent-label">
+                                <li data-value="info" role="option" aria-selected="false">Solo busco información</li>
+                                <li data-value="decidido" role="option" aria-selected="false">Ya decidí divorciarme</li>
+                                <li data-value="demandado" role="option" aria-selected="false">Me están pidiendo el divorcio</li>
+                                <li data-value="otro" role="option" aria-selected="false">Otra situación familiar</li>
                             </ul>
                         </div>
                         

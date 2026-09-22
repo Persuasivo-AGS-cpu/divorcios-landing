@@ -1025,10 +1025,17 @@ a { text-decoration: none; color: inherit; }
     font-size: 0.95rem;
 }
 
-.custom-options-list li:hover {
-    background: rgba(212, 160, 23, 0.08); /* faint gold */
+.custom-options-list li:hover,
+.custom-options-list li.focused {
+    background: rgba(212, 160, 23, 0.08);
     color: var(--color-cta);
     font-weight: 500;
+}
+
+.custom-options-list li[aria-selected="true"] {
+    background: rgba(212, 160, 23, 0.12);
+    color: var(--color-primary);
+    font-weight: 600;
 }
 
 /* Floating Label Logic for Custom Select */

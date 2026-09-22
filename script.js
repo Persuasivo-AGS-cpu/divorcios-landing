@@ -146,19 +146,61 @@ function updateProgressBar() {
     }
 }
 
+const SPRING_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+
 function startTestUI() {
-    document.getElementById("test-intro-container").classList.add("hidden");
-    document.getElementById("test-ui-container").classList.remove("hidden");
-    document.getElementById("test-ui-container").scrollIntoView({ behavior: 'smooth', block: 'center' });
-    initTest(); // Reset state
-    document.getElementById("test-questions").style.display = "block";
-    document.getElementById("test-results").classList.add("hidden");
+    const intro = document.getElementById("test-intro-container");
+    const testEl = document.getElementById("test-ui-container");
+
+    const fadeOut = intro.animate(
+        [{ opacity: 1, transform: 'translateY(0)' },
+         { opacity: 0, transform: 'translateY(-10px)' }],
+        { duration: 180, easing: 'ease-in', fill: 'forwards' }
+    );
+
+    fadeOut.onfinish = () => {
+        intro.classList.add("hidden");
+        testEl.classList.remove("hidden");
+        initTest();
+        document.getElementById("test-questions").style.display = "block";
+        document.getElementById("test-results").classList.add("hidden");
+
+        testEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        requestAnimationFrame(() => {
+            testEl.animate(
+                [{ opacity: 0, transform: 'translateY(24px) scale(0.97)' },
+                 { opacity: 1, transform: 'translateY(0) scale(1)' }],
+                { duration: 450, easing: SPRING_EASE, fill: 'forwards' }
+            );
+        });
+    };
 }
 
 function resetTestUI() {
-    document.getElementById("test-ui-container").classList.add("hidden");
-    document.getElementById("test-intro-container").classList.remove("hidden");
-    document.getElementById("interactive-test").scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const testEl = document.getElementById("test-ui-container");
+    const intro = document.getElementById("test-intro-container");
+
+    const fadeOut = testEl.animate(
+        [{ opacity: 1, transform: 'scale(1)' },
+         { opacity: 0, transform: 'scale(0.97) translateY(10px)' }],
+        { duration: 220, easing: 'cubic-bezier(0.4, 0, 1, 1)', fill: 'forwards' }
+    );
+
+    fadeOut.onfinish = () => {
+        testEl.classList.add("hidden");
+        intro.classList.remove("hidden");
+
+        requestAnimationFrame(() => {
+            intro.animate(
+                [{ opacity: 0, transform: 'translateY(-10px)' },
+                 { opacity: 1, transform: 'translateY(0)' }],
+                { duration: 350, easing: SPRING_EASE, fill: 'forwards' }
+            );
+        });
+
+        document.getElementById("interactive-test").scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
 }
 
 function handleOptionClick(qIndex, questionText, answerText, key) {
@@ -419,45 +461,108 @@ function handleSmartForm(event) {
     });
 }
 
-// Custom Select Logic
+// Custom Select Logic — with ARIA + keyboard navigation
 document.addEventListener('DOMContentLoaded', () => {
     const customSelects = document.querySelectorAll('.custom-select-container');
-    
+
     customSelects.forEach(container => {
         const trigger = container.querySelector('.custom-select-trigger');
         const list = container.querySelector('.custom-options-list');
-        const options = list.querySelectorAll('li');
+        const opts = Array.from(list.querySelectorAll('li'));
         const hiddenSelect = container.querySelector('select');
         const selectedText = container.querySelector('.selected-text');
-        
+
         if (!trigger || !list || !hiddenSelect) return;
-        
+
+        function openList() {
+            container.classList.add('open');
+            trigger.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeList() {
+            container.classList.remove('open');
+            trigger.setAttribute('aria-expanded', 'false');
+            opts.forEach(o => o.classList.remove('focused'));
+        }
+
+        function selectOption(option) {
+            selectedText.textContent = option.textContent;
+            hiddenSelect.value = option.dataset.value;
+            opts.forEach(o => o.setAttribute('aria-selected', 'false'));
+            option.setAttribute('aria-selected', 'true');
+            container.classList.add('has-value');
+            hiddenSelect.removeAttribute('required');
+            closeList();
+            trigger.focus();
+        }
+
+        function getFocusedIdx() {
+            const focused = list.querySelector('.focused');
+            return focused ? opts.indexOf(focused) : -1;
+        }
+
+        // Click to open/close
         trigger.addEventListener('click', (e) => {
             e.stopPropagation();
-            container.classList.toggle('open');
+            container.classList.contains('open') ? closeList() : openList();
         });
-        
-        options.forEach(option => {
+
+        // Keyboard navigation
+        trigger.addEventListener('keydown', (e) => {
+            const isOpen = container.classList.contains('open');
+            const idx = getFocusedIdx();
+
+            switch (e.key) {
+                case 'Enter':
+                case ' ':
+                    e.preventDefault();
+                    if (!isOpen) {
+                        openList();
+                        opts[0].classList.add('focused');
+                    } else {
+                        const focused = list.querySelector('.focused');
+                        if (focused) selectOption(focused);
+                        else if (opts[0]) selectOption(opts[0]);
+                    }
+                    break;
+                case 'Escape':
+                    e.preventDefault();
+                    closeList();
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    if (!isOpen) { openList(); }
+                    opts.forEach(o => o.classList.remove('focused'));
+                    opts[Math.min(idx + 1, opts.length - 1)].classList.add('focused');
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    if (!isOpen) { openList(); }
+                    opts.forEach(o => o.classList.remove('focused'));
+                    opts[Math.max(idx - 1, 0)].classList.add('focused');
+                    break;
+                case 'Tab':
+                    if (isOpen) closeList();
+                    break;
+            }
+        });
+
+        // Click on option
+        opts.forEach(option => {
             option.addEventListener('click', (e) => {
                 e.stopPropagation();
-                // Update text
-                selectedText.textContent = option.textContent;
-                // Update hidden select
-                hiddenSelect.value = option.dataset.value;
-                // Add has-value class for floating label
-                container.classList.add('has-value');
-                // Close list
-                container.classList.remove('open');
-                // Remove required warning if it was touched
-                hiddenSelect.removeAttribute('required');
+                selectOption(option);
+            });
+
+            option.addEventListener('mouseenter', () => {
+                opts.forEach(o => o.classList.remove('focused'));
+                option.classList.add('focused');
             });
         });
-        
+
         // Close on outside click
         document.addEventListener('click', (e) => {
-            if (!container.contains(e.target)) {
-                container.classList.remove('open');
-            }
+            if (!container.contains(e.target)) closeList();
         });
     });
 });
