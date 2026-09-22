@@ -256,16 +256,20 @@ function showResults() {
         emailBody += `Pregunta ${i+1}: ${ans.question}\nRespuesta: ${ans.answer} (${ans.key})\n\n`;
     });
     
+    // Fire Meta Lead event
+    if (typeof fbq === 'function') fbq('track', 'Lead');
+
     // Send data to email via formsubmit.co in the background
     // FormSubmit automatically renders JSON properties as an HTML table in the email body.
     fetch("https://formsubmit.co/ajax/rmorga@monterreyjuridico.com", {
         method: "POST",
-        headers: { 
+        headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
         body: JSON.stringify({
             _subject: `Radiografía Confidencial - ${folioId}`,
+            _honey: "",
             "Folio del Cliente": folioId,
             "Respuestas del Test": emailBody,
             "---": "------------------------------------------------------",
@@ -334,9 +338,9 @@ function showResults() {
         resultWhatsapp.style.pointerEvents = "auto";
         resultWhatsapp.style.opacity = "1";
         
-        // Final Auto-redirect
+        // Final Auto-redirect — use anchor click for iOS Safari compatibility
         setTimeout(() => {
-            window.location.href = waUrl;
+            resultWhatsapp.click();
         }, 1500);
     }, 3500);
 }
@@ -435,15 +439,19 @@ function handleSmartForm(event) {
     const telefono = document.getElementById('form-phone').value;
     const etapa = document.getElementById('form-intent').value;
 
+    // Fire Meta Lead event
+    if (typeof fbq === 'function') fbq('track', 'Lead');
+
     // Send data to email via formsubmit.co
     fetch("https://formsubmit.co/ajax/rmorga@monterreyjuridico.com", {
         method: "POST",
-        headers: { 
+        headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
         body: JSON.stringify({
             _subject: "Nuevo Lead - Asesoría Confidencial",
+            _honey: "",
             Nombre: nombre,
             Telefono: telefono,
             Etapa: etapa
@@ -456,7 +464,6 @@ function handleSmartForm(event) {
     })
     .catch(error => {
         console.error('Error al enviar el formulario:', error);
-        // Fallback: show success anyway so user experience isn't interrupted
         form.style.display = 'none';
         successMsg.classList.add('active');
     });
