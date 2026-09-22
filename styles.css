@@ -41,7 +41,8 @@ body {
     color: var(--color-text);
     background-color: #FAFBFC; /* A clean, brilliant minimal grey-white */
     line-height: 1.6;
-    font-size: 16px;
+    font-size: 100%;
+    font-optical-sizing: auto;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -106,8 +107,15 @@ a { text-decoration: none; color: inherit; }
     border-radius: var(--radius-full);
     cursor: pointer;
     border: none;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* Magnetic curve */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.3s ease;
     text-align: center;
+}
+
+.btn:active {
+    transform: scale(0.97) !important;
+    transition-duration: 80ms !important;
 }
 
 .btn-primary {
@@ -208,7 +216,9 @@ a { text-decoration: none; color: inherit; }
     border-radius: var(--radius-md);
     padding: 2.5rem 2rem;
     box-shadow: 0 4px 10px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,0.6);
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* Magnetic */
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     border: 1px solid rgba(27, 54, 93, 0.05);
 }
 
@@ -249,22 +259,22 @@ a { text-decoration: none; color: inherit; }
 }
 
 .main-header {
-    background-color: rgba(247, 248, 250, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background-color: rgba(247, 248, 250, 0.72);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     position: sticky;
     top: 0;
     z-index: 100;
-    transition: all 0.3s ease;
-    border-bottom: 1px solid transparent;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .main-header.scrolled {
-    background-color: rgba(255, 255, 255, 0.85); /* More transparent for glassmorphism */
-    backdrop-filter: blur(20px); /* Increased blur */
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5); /* Subtle inner border */
+    background-color: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06), 0 4px 24px rgba(0, 0, 0, 0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .header-container {
@@ -1642,4 +1652,59 @@ a { text-decoration: none; color: inherit; }
     0% { transform: scale(1); box-shadow: 0 10px 30px rgba(212, 160, 23, 0.25); }
     50% { transform: scale(1.03); box-shadow: 0 15px 40px rgba(212, 160, 23, 0.4); }
     100% { transform: scale(1); box-shadow: 0 10px 30px rgba(212, 160, 23, 0.25); }
+}
+
+/* ==========================================================================
+   REDUCED MOTION — Accessibility §14 Apple Design
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    /* Keep opacity cross-fades — they aid comprehension without vestibular risk */
+    .fade-up-delay-1,
+    .fade-up-delay-2,
+    .fade-up-delay-3 {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .ambient-mesh::before,
+    .ambient-mesh::after {
+        animation: none !important;
+    }
+
+    .question-slide {
+        transition: opacity 150ms ease !important;
+        transform: none !important;
+    }
+
+    .question-slide.active {
+        transform: none !important;
+    }
+
+    .question-slide.prev {
+        transform: none !important;
+    }
+}
+
+/* ==========================================================================
+   REDUCED TRANSPARENCY
+   ========================================================================== */
+@media (prefers-reduced-transparency: reduce) {
+    .main-header,
+    .main-header.scrolled {
+        background-color: rgba(247, 248, 250, 0.98);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
 }
