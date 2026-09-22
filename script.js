@@ -152,6 +152,9 @@ function startTestUI() {
     const intro = document.getElementById("test-intro-container");
     const testEl = document.getElementById("test-ui-container");
 
+    // Scroll immediately — user sees page move on click, not after 180ms
+    document.getElementById("interactive-test").scrollIntoView({ behavior: 'smooth', block: 'start' });
+
     const fadeOut = intro.animate(
         [{ opacity: 1, transform: 'translateY(0)' },
          { opacity: 0, transform: 'translateY(-10px)' }],
@@ -164,8 +167,6 @@ function startTestUI() {
         initTest();
         document.getElementById("test-questions").style.display = "block";
         document.getElementById("test-results").classList.add("hidden");
-
-        testEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
         requestAnimationFrame(() => {
             testEl.animate(
