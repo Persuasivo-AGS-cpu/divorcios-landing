@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://monterreyjuridico.com/sitemap.xml
